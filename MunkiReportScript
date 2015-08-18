@@ -1,18 +1,15 @@
 #!/bin/sh
 
 # This is a bash script that should pull the latest machine names from munki report and write new manifests using them and the IITS baseline
-# it's incomplete.
-# two things are needed- A way of ratcheting the file forward for each new machine, and a check step to prevent overwriting manifests.
-# Update- Ratcheting method derived. See below:
-# Let's set this to listen to the 'munkireport' table in the DB.. it needs to tell us when there's an update. 
-# no code here, yet.
+
+# If needed, we can set this to listen to the 'munkireport' table in the DB.. it needs to tell us when there's an update. 
+# - no code here, yet. It's unneccessary for the script's current purpose, as the cp -u command ought to prevent overwrites, and this can be run by Cron at 1 min intervals, etc...
+
 
 # In order to figure out which machine we should make a new ID for, we'll look at the current status of the manifests:
 lastnum=`mysql -u[NAME] -p[PASS] -s -N -e "Use [Munki Report DB]; SELECT MAX(id) FROM machine"`
 echo $lastnum
-# If used, this will increment the number by 1. we don't need to do that, because we're looking for updates.
-# let "num=$lastnum+1"
-# echo $Num
+
 # You'll need to put a while loop and an if loop to get the increment thing to work, and it's unneccessary now. 
 
 id=`mysql -u[USER] -p[PASS] -s -N -e "Use munkireport; SELECT hostname FROM machine WHERE ID=' "$lastnum" '"`
