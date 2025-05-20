@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is a bash script that should pull the latest machine names from munki report and write new manifests using them and the IITS baseline
+# This is a bash script that should pull the latest machine names from munki report and write new manifests using them and the relevant baseline
 
 # If needed, we can set this to listen to the 'munkireport' table in the DB.. it needs to tell us when there's an update. 
 # - no code here, yet. It's unneccessary for the script's current purpose, as the cp -u command ought to prevent overwrites, and this can be run by Cron at 1 min intervals, etc...
